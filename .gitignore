@@ -1,0 +1,9 @@
+bin/*
+!bin/blank.txt
+original_art/
+original_frames/
+processed_frames/
+ranked_art/
+input.mp4
+processed_video.mp4
+output.mp4
