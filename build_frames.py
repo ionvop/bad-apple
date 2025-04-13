@@ -1,6 +1,6 @@
 import os
 import cv2
-import numpy as np
+import numpy
 import random
 import json
 
@@ -35,8 +35,11 @@ def main() -> None:
         for x in range(canvas_width // chunk_width):
             image_map[y][x] = get_from_bag(lower_bag, 0, (image_count // 2) - 1)
 
+    if not os.path.exists("processed_frames"):
+        os.mkdir("processed_frames")
+
     for file in files:
-        canvas = np.zeros((canvas_height, canvas_width, 3), dtype=np.uint8)
+        canvas = numpy.zeros((canvas_height, canvas_width, 3), dtype=numpy.uint8)
         frame = cv2.imread(f"original_frames/{file}")
         original_height, original_width = frame.shape[:2]
 
@@ -47,7 +50,7 @@ def main() -> None:
                 rel_y = min(rel_y, original_height - 1)
                 rel_x = min(rel_x, original_width - 1)
                 pixel = frame[rel_y, rel_x]
-                brightness = np.mean(pixel)
+                brightness = numpy.mean(pixel)
 
                 if brightness > 128:
                     if id_map[y][x] == 0:
@@ -68,7 +71,7 @@ def main() -> None:
     print("Build frames done!")
 
 
-def resize_and_crop_cover(image, target_width, target_height):
+def resize_and_crop_cover(image: cv2.typing.MatLike, target_width: int, target_height: int) -> cv2.typing.MatLike:
     src_h, src_w = image.shape[:2]
     target_ratio = target_width / target_height
     src_ratio = src_w / src_h
@@ -85,13 +88,13 @@ def resize_and_crop_cover(image, target_width, target_height):
     return cropped
 
 
-def create_bag(start, end):
+def create_bag(start: int, end: int) -> list[int]:
     bag = list(range(start, end + 1))
     random.shuffle(bag)
     return bag
 
 
-def get_from_bag(bag, start, end):
+def get_from_bag(bag: list[int], start: int, end: int) -> int:
     if not bag:
         bag.extend(create_bag(start, end))
 
