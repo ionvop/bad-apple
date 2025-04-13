@@ -6,12 +6,21 @@ A simple video processing pipeline designed to extract frames from a video, rank
 
 ```
 .
-├── init.py
-├── extract_frames.py
-├── rank_brightness.py
+├── bin
+│   └── ffmpeg.exe      ← Download FFMPEG and place it here
+├── original_art        ← Place artworks you want to use here
+│   ├── art1.jpg
+│   ├── art2.jpg
+│   ├── art3.jpg
+│   └── ...
 ├── build_frames.py
 ├── build_video.py
-└── main.py
+├── config.json         ← Configuration file
+├── extract_frames.py
+├── input.mp4
+├── main.py
+├── rank_brightness.py
+└── requirements.txt
 ```
 
 ## Requirements
@@ -24,20 +33,7 @@ You can install the required Python packages using pip:
 pip install -r requirements.txt
 ```
 
-## Directory Initialization
-
-The `init.py` script can be run to create the necessary directories if they do not already exist. You can run it using:
-
-```bash
-python init.py
-```
-
-This will create the following directories:
-
-- `ranked_art`
-- `original_art`
-- `original_frames`
-- `processed_frames`
+## Initialization
 
 Place your input video as `input.mp4` in the root directory, and place all the artworks you want to use in the `original_art` directory as `.jpg` files.
 
