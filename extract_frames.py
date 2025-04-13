@@ -6,16 +6,19 @@ import json
 def main() -> None:
     config = json.load(open("config.json"))
     framerate = config["framerate"]
-    video_to_frames("input.mp4", "output", framerate)
+    video_to_frames("input.mp4", "original_frames", framerate)
 
 
-def video_to_frames(video_path: str, output_folder: str, target_fps: int=1) -> None:
+def video_to_frames(video_path: str, output_folder: str, target_fps: int) -> None:
     vidcap = cv2.VideoCapture(video_path)
     original_fps = vidcap.get(cv2.CAP_PROP_FPS)
     frame_interval = int(original_fps / target_fps)
     count = 0
     saved_count = 0
     success, image = vidcap.read()
+
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
 
     while success:
         if count % frame_interval == 0:
