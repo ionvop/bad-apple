@@ -13,8 +13,8 @@ def main() -> None:
     add_audio_to_video("input.mp4", "processed_video.mp4", "output.mp4")
 
 
-def frames_to_video(frames_folder: str, output_path: str, fps: int, frame_size: tuple):
-    out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, frame_size)
+def frames_to_video(frames_folder: str, output_path: str, fps: int, frame_size: tuple[int, int]) -> None:
+    out = cv2.VideoWriter(output_path, cv2.VideoWriter.fourcc(*'mp4v'), fps, frame_size)
 
     frame_files = sorted(
         [f for f in os.listdir(frames_folder) if f.endswith('.jpg')]
@@ -29,7 +29,7 @@ def frames_to_video(frames_folder: str, output_path: str, fps: int, frame_size: 
     print("Build video done!")
 
 
-def add_audio_to_video(original_video: str, processed_video: str, output_video: str):
+def add_audio_to_video(original_video: str, processed_video: str, output_video: str) -> None:
     audio_file = "temp_audio.aac"
     subprocess.run(["bin/ffmpeg", "-y", "-i", original_video, "-q:a", "0", "-map", "a", audio_file])
     subprocess.run(["bin/ffmpeg", "-y", "-i", processed_video, "-i", audio_file, "-c:v", "copy", "-c:a", "aac", output_video])
