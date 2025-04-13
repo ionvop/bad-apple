@@ -1,6 +1,8 @@
+.vscode/
 bin/*
 !bin/blank.txt
-original_art/
+original_art/*
+!original_art/blank.txt
 original_frames/
 processed_frames/
 ranked_art/
