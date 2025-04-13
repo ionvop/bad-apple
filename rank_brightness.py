@@ -18,6 +18,9 @@ def main() -> None:
         print(f"Ranked brightness: {filename}")
 
     brightness_ranks.sort(key=lambda x: x[1])
+
+    if not os.path.exists("ranked_art"):
+        os.mkdir("ranked_art")
     
     for rank, brightness_rank in enumerate(brightness_ranks):
         shutil.copyfile(f"original_art/{brightness_rank[0]}", f"ranked_art/{rank}.jpg")
